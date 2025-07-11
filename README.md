@@ -8,16 +8,7 @@ I created this app during my internship in Seoul, South Korea. Since I didn't sp
 
 Currently, Scriptify supports English and Korean transcription, with plans to expand to more languages in the future.
 
-## Features
 
-- 🎤 **High-Quality Transcription**: Powered by OpenAI's Whisper model for accurate speech-to-text conversion
-- 🌍 **Multi-Language Support**: Currently supports English and Korean (more languages coming soon)
-- 💻 **Cross-Platform**: Works on Windows, macOS, and Linux
-- 🎨 **Modern UI**: Beautiful, responsive interface with dark/light theme support
-- 📁 **File Export**: Export transcriptions in multiple formats (TXT, DOCX, PDF, SRT, VTT)
-- 🔄 **Real-time Progress**: Live progress tracking during transcription
-- 📊 **Statistics**: Word count, character count, and estimated reading time
-- 🎵 **Audio Playback**: Built-in audio player for uploaded files
 
 ## Quick Start
 
@@ -31,8 +22,8 @@ Currently, Scriptify supports English and Korean transcription, with plans to ex
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/yourusername/scriptify.git
-   cd scriptify
+   git clone git@github.com:jovidjumaev/Scriptify.git
+   cd Scriptify
    ```
 
 2. **Install dependencies**
