@@ -1,0 +1,55 @@
+{
+  "$schema": "https://beta.tauri.app/schema.json",
+  "build": {
+    "beforeDevCommand": "npm run dev",
+    "beforeBuildCommand": "npm run build",
+    "devPath": "http://localhost:1420",
+    "distDir": "../dist"
+  },
+  "tauri": {
+    "withGlobalTauri": false,
+    "security": {
+      "csp": null
+    },
+    "windows": [
+      {
+        "fullscreen": false,
+        "resizable": true,
+        "title": "Scriptify Transcribe",
+        "width": 1200,
+        "height": 800,
+        "minWidth": 800,
+        "minHeight": 600
+      }
+    ],
+    "bundle": {
+      "identifier": "com.scriptify-transcribe.app",
+      "active": true,
+      "targets": "all",
+      "icon": [
+        "icons/32x32.png",
+        "icons/128x128.png",
+        "icons/128x128@2x.png",
+        "icons/icon.icns",
+        "icons/icon.ico"
+      ]
+    }
+  },
+  "plugins": {
+    "shell": {
+      "open": true
+    },
+    "dialog": {
+      "all": true
+    },
+    "fs": {
+      "all": true,
+      "scope": ["$APPDATA/*", "$APPDATA/scriptify-transcribe/*"]
+    },
+    "http": {
+      "all": true,
+      "request": true,
+      "scope": ["https://api.openai.com/*", "https://api.whisper.ai/*"]
+    }
+  }
+} 
