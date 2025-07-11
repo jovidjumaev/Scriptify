@@ -14,6 +14,7 @@ interface AudioRecorderState {
 interface TranscriptionRequest {
   audioBlob: Blob
   language?: string
+  model?: string
 }
 
 interface ProgressUpdate {
@@ -29,6 +30,7 @@ interface UseAudioRecorderReturn extends AudioRecorderState {
 }
 
 export const useAudioRecorder = (): UseAudioRecorderReturn => {
+  
   const [state, setState] = useState<AudioRecorderState>({
     audioBlob: null,
     audioUrl: null,
@@ -108,7 +110,7 @@ export const useAudioRecorder = (): UseAudioRecorderReturn => {
     }
   }, [])
 
-  const transcribeAudio = useCallback(async (language = 'auto') => {
+  const transcribeAudio = useCallback(async (language?: string) => {
     if (!state.audioBlob) {
       setState(prev => ({ ...prev, error: 'No audio to transcribe' }))
       return
@@ -123,6 +125,9 @@ export const useAudioRecorder = (): UseAudioRecorderReturn => {
     }))
 
     try {
+      // Use language from parameter or fallback to store setting
+      const languageToUse = language || 'en' // Default to 'en'
+      
       // Try to use local Whisper service, fallback to web service
       let transcriptionService
       try {
@@ -136,7 +141,8 @@ export const useAudioRecorder = (): UseAudioRecorderReturn => {
       
       const request: TranscriptionRequest = {
         audioBlob: state.audioBlob,
-        language,
+        language: languageToUse,
+        model: 'whisper-1', // Default model
       }
 
       const response = await transcriptionService.transcribe(request)

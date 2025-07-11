@@ -79,6 +79,27 @@ export default {
       backdropBlur: {
         xs: '2px',
       },
+      // Add CSS variable support
+      backgroundColor: {
+        'bg-primary': 'var(--bg-primary)',
+        'bg-secondary': 'var(--bg-secondary)',
+        'bg-tertiary': 'var(--bg-tertiary)',
+        'glass-bg': 'var(--glass-bg)',
+      },
+      textColor: {
+        'text-primary': 'var(--text-primary)',
+        'text-secondary': 'var(--text-secondary)',
+        'text-muted': 'var(--text-muted)',
+      },
+      borderColor: {
+        'border-primary': 'var(--border-primary)',
+        'border-secondary': 'var(--border-secondary)',
+        'glass-border': 'var(--glass-border)',
+      },
+      boxShadow: {
+        'shadow-primary': 'var(--shadow-primary)',
+        'shadow-secondary': 'var(--shadow-secondary)',
+      },
     },
   },
   plugins: [],

@@ -27,11 +27,6 @@ interface AppState {
   transcriptionData: TranscriptionData | null
   error: string | null
   
-  // Settings
-  language: string
-  model: string
-  transcriptionService: 'local-whisper' | 'openai' | 'azure'
-  
   // Sessions
   sessions: Session[]
   currentSessionId: string | null
@@ -42,17 +37,13 @@ interface AppState {
   setIsTranscribing: (isTranscribing: boolean) => void
   setError: (error: string | null) => void
   clearTranscription: () => void
-  updateSettings: (settings: Partial<{
-    language: string
-    model: string
-    transcriptionService: 'local-whisper' | 'openai' | 'azure'
-  }>) => void
   
   // Session actions
   createSession: (title: string) => void
   updateSession: (id: string, updates: Partial<Session>) => void
   deleteSession: (id: string) => void
   setCurrentSession: (id: string) => void
+  resetStore: () => void
 }
 
 export const useAppStore = create<AppState>()(
@@ -63,11 +54,6 @@ export const useAppStore = create<AppState>()(
       isTranscribing: false,
       transcriptionData: null,
       error: null,
-      
-      // Default settings
-      language: 'auto',
-      model: 'base',
-      transcriptionService: 'local-whisper',
       
       // Sessions
       sessions: [],
@@ -90,11 +76,6 @@ export const useAppStore = create<AppState>()(
         transcriptionData: null, 
         error: null 
       }),
-      
-      updateSettings: (settings) => set((state) => ({
-        ...state,
-        ...settings
-      })),
       
       // Session actions
       createSession: (title) => {
@@ -130,14 +111,18 @@ export const useAppStore = create<AppState>()(
         }
       }),
       
-      setCurrentSession: (id) => set({ currentSessionId: id })
+      setCurrentSession: (id) => set({ currentSessionId: id }),
+
+      resetStore: () => {
+        set({
+          sessions: [],
+          currentSessionId: null,
+        })
+      }
     }),
     {
       name: 'scriptify-store',
       partialize: (state) => ({
-        language: state.language,
-        model: state.model,
-        transcriptionService: state.transcriptionService,
         sessions: state.sessions,
         currentSessionId: state.currentSessionId
       })

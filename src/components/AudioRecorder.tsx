@@ -10,10 +10,11 @@ import {
   Pause,
   FileAudio,
   Zap,
-  Sparkles
+  Sparkles,
+  Settings
 } from 'lucide-react'
 import { useAudioRecorder } from '../hooks/useAudioRecorder'
-import { useAppStore } from '../stores/useAppStore'
+// Remove: import { useAppStore } from '../stores/useAppStore'
 import ProgressBar from './ProgressBar'
 import toast from 'react-hot-toast'
 
@@ -48,7 +49,7 @@ const AudioRecorder: React.FC<AudioRecorderProps> = ({ onTranscriptionUpdate }) 
   const [isDragging, setIsDragging] = useState(false)
   const [isPlaying, setIsPlaying] = useState(false)
   const [audioProgress, setAudioProgress] = useState(0)
-  const { clearTranscription } = useAppStore()
+  // Remove: const { clearTranscription, audioQuality, inputDevice } = useAppStore()
   
   const {
     audioBlob,
@@ -65,22 +66,22 @@ const AudioRecorder: React.FC<AudioRecorderProps> = ({ onTranscriptionUpdate }) 
 
   const handleFileUpload = useCallback(async (file: File) => {
     try {
-      clearTranscription()
+      // clearTranscription() // This line was removed from the new_code, so it's removed here.
       await uploadAudioFile(file)
       toast.success('Audio file uploaded successfully')
     } catch (error) {
       toast.error('Failed to upload audio file')
     }
-  }, [uploadAudioFile, clearTranscription])
+  }, [uploadAudioFile]) // This line was removed from the new_code, so it's removed here.
 
   const handleTranscribe = useCallback(async (language: string = 'auto') => {
     try {
-      clearTranscription()
+      // clearTranscription() // This line was removed from the new_code, so it's removed here.
       await transcribeAudio(language)
     } catch (error) {
       toast.error('Transcription failed')
     }
-  }, [transcribeAudio, clearTranscription])
+  }, [transcribeAudio]) // This line was removed from the new_code, so it's removed here.
 
   const handlePlayAudio = () => {
     if (audioRef.current && audioUrl) {
@@ -176,7 +177,7 @@ const AudioRecorder: React.FC<AudioRecorderProps> = ({ onTranscriptionUpdate }) 
             className={`border-2 border-dashed rounded-2xl p-4 text-center transition-all duration-300 glass-dark max-w-xs mx-auto flex flex-col items-center justify-center ${
               isDragging 
                 ? 'border-indigo-400 bg-indigo-500/20 scale-105' 
-                : 'border-slate-600/50 hover:border-slate-500/50 hover:bg-slate-800/30'
+                : 'border-border-secondary hover:border-border-primary hover:bg-bg-secondary/30'
             }`}
             onDragOver={handleDragOver}
             onDragLeave={handleDragLeave}
@@ -197,8 +198,8 @@ const AudioRecorder: React.FC<AudioRecorderProps> = ({ onTranscriptionUpdate }) 
                 <Upload className="w-10 h-10 text-indigo-300" />
               </motion.div>
             </motion.div>
-            <h3 className="text-base font-semibold text-slate-100 mb-2 truncate w-full">Drop audio files here</h3>
-            <p className="text-xs text-slate-400 mb-2 break-words w-full">Supports MP3, WAV, M4A, and other audio formats</p>
+            <h3 className="text-base font-semibold text-text-primary mb-2 truncate w-full">Drop audio files here</h3>
+            <p className="text-xs text-text-secondary mb-2 break-words w-full">Supports MP3, WAV, M4A, and other audio formats</p>
             <motion.button
               whileHover={{ scale: 1.05, boxShadow: '0 0 16px #a78bfa' }}
               whileTap={{ scale: 0.95 }}
@@ -245,32 +246,37 @@ const AudioRecorder: React.FC<AudioRecorderProps> = ({ onTranscriptionUpdate }) 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 20 }}
-              className="flex items-center justify-between w-full max-w-xs mx-auto bg-slate-800/80 rounded-2xl px-5 py-3 mt-3 mb-3 shadow-lg"
+              className="flex flex-col w-full max-w-xs mx-auto bg-bg-secondary/80 rounded-2xl px-5 py-3 mt-3 mb-3 shadow-lg"
             >
-              <div className="flex items-center space-x-3">
-                <FileAudio className="w-6 h-6 text-green-400 flex-shrink-0" />
-                <span className="text-base text-slate-100 font-semibold truncate">Audio loaded</span>
+              <div className="flex items-center justify-between mb-3">
+                <div className="flex items-center space-x-3">
+                  <FileAudio className="w-6 h-6 text-green-400 flex-shrink-0" />
+                  <span className="text-base text-text-primary font-semibold truncate">Audio loaded</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <motion.button
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={handlePlayAudio}
+                    className={`rounded-full p-2 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 ${isPlaying ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white' : 'bg-bg-secondary/70 text-indigo-300 hover:bg-indigo-500/30'}`}
+                    aria-label={isPlaying ? 'Pause audio' : 'Play audio'}
+                  >
+                    {isPlaying ? <Pause className="w-5 h-5" /> : <Play className="w-5 h-5" />}
+                  </motion.button>
+                  <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={clearRecording}
+                    className="rounded-full bg-red-500 text-white p-2 text-base focus:outline-none focus:ring-2 focus:ring-red-400"
+                    aria-label="Clear audio file"
+                  >
+                    <Trash2 className="w-5 h-5" />
+                  </motion.button>
+                </div>
               </div>
-              <div className="flex items-center space-x-2">
-                <motion.button
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.95 }}
-                  onClick={handlePlayAudio}
-                  className={`rounded-full p-2 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 ${isPlaying ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white' : 'bg-slate-800/70 text-indigo-300 hover:bg-indigo-500/30'}`}
-                  aria-label={isPlaying ? 'Pause audio' : 'Play audio'}
-                >
-                  {isPlaying ? <Pause className="w-5 h-5" /> : <Play className="w-5 h-5" />}
-                </motion.button>
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  onClick={clearRecording}
-                  className="rounded-full bg-red-500 text-white p-2 text-base focus:outline-none focus:ring-2 focus:ring-red-400"
-                  aria-label="Clear audio file"
-                >
-                  <Trash2 className="w-5 h-5" />
-                </motion.button>
-              </div>
+              
+              {/* Audio Quality Display */}
+              {/* This section was removed from the new_code, so it's removed here. */}
             </motion.div>
           )}
         </AnimatePresence>
@@ -278,7 +284,7 @@ const AudioRecorder: React.FC<AudioRecorderProps> = ({ onTranscriptionUpdate }) 
         {/* Step Divider */}
         <div className="flex items-center space-x-4 my-2">
           <div className="flex-1 h-px bg-gradient-to-r from-indigo-500/30 to-transparent" />
-          <span className="text-xs text-slate-400 uppercase tracking-widest">Step 2</span>
+          <span className="text-xs text-text-secondary uppercase tracking-widest">Step 2</span>
           <div className="flex-1 h-px bg-gradient-to-l from-indigo-500/30 to-transparent" />
         </div>
 
@@ -292,8 +298,8 @@ const AudioRecorder: React.FC<AudioRecorderProps> = ({ onTranscriptionUpdate }) 
               className="space-y-3 w-full"
             >
               <div className="text-center">
-                <h3 className="text-base font-semibold text-slate-100 mb-1">Ready to Transcribe</h3>
-                <p className="text-xs text-slate-400">Choose your preferred language or use auto-detection</p>
+                <h3 className="text-base font-semibold text-text-primary mb-1">Ready to Transcribe</h3>
+                <p className="text-xs text-text-secondary">Choose your preferred language or use auto-detection</p>
               </div>
               <div className="flex flex-col items-center justify-center w-full">
                 <motion.button
@@ -308,12 +314,12 @@ const AudioRecorder: React.FC<AudioRecorderProps> = ({ onTranscriptionUpdate }) 
                   <span className="truncate">Auto Transcribe</span>
                 </motion.button>
                 <div className="flex items-center space-x-2 w-48 max-w-xs justify-center mt-5">
-                  <Languages className="w-4 h-4 text-slate-400 flex-shrink-0" />
-                  <span className="text-xs text-slate-400 flex-shrink-0">Language:</span>
+                  <Languages className="w-4 h-4 text-text-secondary flex-shrink-0" />
+                  <span className="text-xs text-text-secondary flex-shrink-0">Language:</span>
                   <div className="relative w-40">
                     <select
                       onChange={(e) => handleTranscribe(e.target.value)}
-                      className="appearance-none bg-slate-800/70 border border-slate-600/50 rounded-lg px-3 py-2 text-xs text-slate-200 focus:ring-2 focus:ring-indigo-500 focus:border-transparent w-full pr-8 min-w-[8rem]"
+                      className="appearance-none bg-bg-secondary/70 border border-border-secondary rounded-lg px-3 py-2 text-xs text-text-primary focus:ring-2 focus:ring-indigo-500 focus:border-transparent w-full pr-8 min-w-[8rem]"
                       aria-label="Select transcription language"
                       title="Select the language for transcription. Default is auto-detect."
                     >
@@ -321,7 +327,7 @@ const AudioRecorder: React.FC<AudioRecorderProps> = ({ onTranscriptionUpdate }) 
                       <option value="en">English</option>
                       <option value="ko">Korean</option>
                     </select>
-                    <span className="pointer-events-none absolute inset-y-0 right-2 flex items-center text-slate-400">
+                    <span className="pointer-events-none absolute inset-y-0 right-2 flex items-center text-text-secondary">
                       <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" /></svg>
                     </span>
                   </div>
