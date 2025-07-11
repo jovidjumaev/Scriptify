@@ -38,8 +38,7 @@ function App() {
     createSession, 
     updateSession, 
     deleteSession, 
-    setCurrentSession,
-    autoSaveInterval
+    setCurrentSession
   } = useAppStore()
 
   const handleTranscriptionUpdate = (text: string) => {
@@ -89,16 +88,7 @@ function App() {
     }
   }, [theme])
 
-  useEffect(() => {
-    // Auto-save transcription with interval from settings
-    if (transcription && currentSessionId && autoSaveInterval > 0) {
-      const timeoutId = setTimeout(() => {
-        updateSession(currentSessionId, { transcription })
-      }, autoSaveInterval * 1000) // Convert seconds to milliseconds
-      
-      return () => clearTimeout(timeoutId)
-    }
-  }, [transcription, currentSessionId, updateSession, autoSaveInterval])
+  // Remove auto-save useEffect since autoSaveInterval does not exist
 
   // Get current effective theme for background
   const getEffectiveTheme = () => {
@@ -111,11 +101,11 @@ function App() {
   const effectiveTheme = getEffectiveTheme()
 
   return (
-    <div className={`min-h-screen text-text-primary overflow-hidden transition-all duration-300 ${
+    <div className={`min-h-screen text-text-primary overflow-y-auto transition-all duration-300 ${
       effectiveTheme === 'dark' 
         ? 'bg-theme-gradient-dark' 
         : 'bg-theme-gradient-light'
-    }`}>
+    }`} style={{ maxHeight: '100vh' }}>
       {/* Animated Background */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
         <div className="absolute -top-40 -right-40 w-80 h-80 bg-purple-500/20 rounded-full blur-3xl animate-pulse-slow"></div>
@@ -307,12 +297,16 @@ function App() {
                   initial={{ opacity: 0, y: 50 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.4, duration: 0.8 }}
-                  className="h-[800px]"
+                  className="h-[800px] flex flex-col"
                 >
-                  <TranscriptionPanel
-                    transcription={transcription}
-                    onTranscriptionUpdate={handleTranscriptionUpdate}
-                  />
+                  <div className="flex flex-col h-full">
+                    <div className="flex-1 flex flex-col">
+                      <TranscriptionPanel
+                        transcription={transcription}
+                        onTranscriptionUpdate={handleTranscriptionUpdate}
+                      />
+                    </div>
+                  </div>
                 </motion.div>
               </div>
             </div>

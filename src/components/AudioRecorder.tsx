@@ -46,6 +46,7 @@ const AnimatedWaveform = ({ isPlaying }: { isPlaying: boolean }) => (
 const AudioRecorder: React.FC<AudioRecorderProps> = ({ onTranscriptionUpdate }) => {
   const fileInputRef = useRef<HTMLInputElement>(null)
   const audioRef = useRef<HTMLAudioElement>(null)
+  const previousTranscriptionRef = useRef<string>('')
   const [isDragging, setIsDragging] = useState(false)
   const [isPlaying, setIsPlaying] = useState(false)
   const [audioProgress, setAudioProgress] = useState(0)
@@ -129,9 +130,21 @@ const AudioRecorder: React.FC<AudioRecorderProps> = ({ onTranscriptionUpdate }) 
 
   // Handle transcription completion
   React.useEffect(() => {
-    if (transcription && !isTranscribing) {
-      onTranscriptionUpdate(transcription)
-      toast.success('Transcription completed')
+    if (transcription && !isTranscribing && transcription.trim() !== '') {
+      // Only show toast if this is a new transcription completion
+      const currentTranscription = transcription.trim()
+      const previousTranscription = previousTranscriptionRef.current.trim()
+      
+      // Only show success toast if we have new meaningful transcription content
+      if (currentTranscription !== previousTranscription && currentTranscription.length > 10) {
+        onTranscriptionUpdate(transcription)
+        toast.success('Transcription completed')
+        previousTranscriptionRef.current = currentTranscription
+      } else if (currentTranscription !== previousTranscription) {
+        // Update without showing toast for minor changes
+        onTranscriptionUpdate(transcription)
+        previousTranscriptionRef.current = currentTranscription
+      }
     }
   }, [transcription, isTranscribing, onTranscriptionUpdate])
 
@@ -146,6 +159,8 @@ const AudioRecorder: React.FC<AudioRecorderProps> = ({ onTranscriptionUpdate }) 
   React.useEffect(() => {
     setAudioProgress(0)
     setIsPlaying(false)
+    // Reset previous transcription when new audio is loaded
+    previousTranscriptionRef.current = ''
   }, [audioUrl])
 
   return (
@@ -319,7 +334,7 @@ const AudioRecorder: React.FC<AudioRecorderProps> = ({ onTranscriptionUpdate }) 
                   <div className="relative w-40">
                     <select
                       onChange={(e) => handleTranscribe(e.target.value)}
-                      className="appearance-none bg-bg-secondary/70 border border-border-secondary rounded-lg px-3 py-2 text-xs text-text-primary focus:ring-2 focus:ring-indigo-500 focus:border-transparent w-full pr-8 min-w-[8rem]"
+                      className="themed-select w-full pr-8 min-w-[8rem]"
                       aria-label="Select transcription language"
                       title="Select the language for transcription. Default is auto-detect."
                     >
@@ -348,6 +363,18 @@ const AudioRecorder: React.FC<AudioRecorderProps> = ({ onTranscriptionUpdate }) 
           )}
         </AnimatePresence>
       </div>
+      
+      {/* Hidden audio element for playback */}
+      <audio
+        ref={audioRef}
+        src={audioUrl || undefined}
+        onTimeUpdate={handleAudioTimeUpdate}
+        onEnded={() => setIsPlaying(false)}
+        onError={() => {
+          setIsPlaying(false)
+          toast.error('Failed to play audio file')
+        }}
+      />
     </div>
   )
 }

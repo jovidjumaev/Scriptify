@@ -195,6 +195,43 @@
   .bg-theme-gradient-light {
     @apply bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50;
   }
+
+  .themed-select {
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    border: 1px solid var(--border-secondary);
+    border-radius: 0.5rem;
+    padding: 0.5rem 2rem 0.5rem 0.75rem;
+    font-size: 0.875rem;
+    appearance: none;
+    transition: border 0.2s, box-shadow 0.2s;
+    box-shadow: 0 2px 8px 0 var(--glass-border);
+  }
+  .themed-select:focus {
+    outline: none;
+    border-color: #a78bfa;
+    box-shadow: 0 0 0 2px #a78bfa33;
+  }
+  .themed-select option {
+    background: var(--bg-primary);
+    color: var(--text-primary);
+  }
+}
+
+/* Custom select arrow */
+.themed-select::-ms-expand {
+  display: none;
+}
+.themed-select::-webkit-scrollbar {
+  width: 6px;
+  background: var(--bg-tertiary);
+}
+.themed-select::-webkit-scrollbar-thumb {
+  background: var(--border-secondary);
+  border-radius: 9999px;
+}
+.themed-select::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
 }
 
 @keyframes float {

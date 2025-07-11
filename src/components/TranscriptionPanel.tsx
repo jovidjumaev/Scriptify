@@ -250,9 +250,9 @@ export default function TranscriptionPanel({ transcription, onTranscriptionUpdat
               exit={{ opacity: 0, y: -20 }}
               className="flex-1"
             >
-              <div className="w-full h-full p-6 glass rounded-2xl overflow-y-auto">
+              <div className="w-full h-full p-6 glass rounded-2xl overflow-y-auto max-h-[45vh]">
                 {transcription ? (
-                  <div className="whitespace-pre-wrap text-text-primary leading-relaxed font-mono text-sm">
+                  <div className="whitespace-pre-wrap text-text-primary leading-relaxed font-mono text-sm break-words">
                     {transcription}
                   </div>
                 ) : (
