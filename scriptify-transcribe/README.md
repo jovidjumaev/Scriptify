@@ -1,28 +1,29 @@
 # Scriptify Transcribe
 
-An open-source, free speech transcription tool with advanced features built with Tauri, React, and TypeScript.
+![Scriptify Transcribe](dist/example.png)
 
-## 🚀 Features
+An open-source speech transcription tool built with Tauri, React, and TypeScript.
 
-- **Real-time Transcription**: Live speech-to-text conversion
-- **Multi-language Support**: Support for multiple languages with auto-detection
-- **Advanced Editing**: Rich text editing with AI-powered suggestions
-- **Multiple Export Formats**: Export to TXT, DOCX, PDF, SRT, and VTT
-- **Cloud Sync**: Version history and cloud synchronization
-- **Collaborative Editing**: Real-time collaborative transcription editing
-- **Custom Voice Models**: Train and use custom voice recognition models
-- **Privacy-First**: Local processing options and encrypted storage
-- **Cross-Platform**: Works on Windows, macOS, and Linux
+## Features
 
-## 🛠️ Technology Stack
+- Real-time speech-to-text conversion
+- Multi-language support with auto-detection
+- Advanced text editing with AI-powered suggestions
+- Multiple export formats (TXT, DOCX, PDF, SRT, VTT)
+- Cloud synchronization and version history
+- Collaborative editing capabilities
+- Custom voice model training
+- Privacy-first with local processing options
+- Cross-platform support (Windows, macOS, Linux)
 
-- **Frontend**: React 18 + TypeScript + Tailwind CSS
-- **Backend**: Rust (Tauri)
-- **UI Components**: Lucide React Icons
-- **Build Tool**: Vite
-- **Package Manager**: npm
+## Technology Stack
 
-## 📦 Installation
+- Frontend: React 18 + TypeScript + Tailwind CSS
+- Backend: Rust (Tauri)
+- UI Components: Lucide React Icons
+- Build Tool: Vite
+
+## Installation
 
 ### Prerequisites
 
@@ -32,28 +33,28 @@ An open-source, free speech transcription tool with advanced features built with
 
 ### Setup
 
-1. **Clone the repository**
+1. Clone the repository
    ```bash
    git clone <repository-url>
    cd scriptify-transcribe
    ```
 
-2. **Install dependencies**
+2. Install dependencies
    ```bash
    npm install
    ```
 
-3. **Install Tauri CLI**
+3. Install Tauri CLI
    ```bash
    npm install -g @tauri-apps/cli
    ```
 
-4. **Run in development mode**
+4. Run in development mode
    ```bash
    npm run tauri:dev
    ```
 
-## 🏗️ Development
+## Development
 
 ### Project Structure
 
@@ -78,68 +79,8 @@ scriptify-transcribe/
 - `npm run tauri:dev` - Start Tauri development mode
 - `npm run tauri:build` - Build desktop application
 
-## 🎯 Roadmap
 
-### Phase 1: Core Features ✅
-- [x] Basic UI framework
-- [x] Audio recording interface
-- [x] Transcription display
-- [x] Settings panel
+## License
 
-### Phase 2: Advanced Features 🚧
-- [ ] Real-time transcription with OpenAI Whisper
-- [ ] Multiple export formats
-- [ ] Advanced editing interface
-- [ ] File management system
+This project is licensed under the MIT License - see the LICENSE file for details.
 
-### Phase 3: Collaboration Features 📋
-- [ ] Real-time collaborative editing
-- [ ] Comments and annotations
-- [ ] Version control
-- [ ] Team workspaces
-
-### Phase 4: AI Enhancements 📋
-- [ ] Speaker diarization
-- [ ] Emotion detection
-- [ ] Keyword extraction
-- [ ] Custom vocabulary training
-
-## 🤝 Contributing
-
-We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details.
-
-### Development Setup
-
-1. Fork the repository
-2. Create a feature branch: `git checkout -b feature/amazing-feature`
-3. Make your changes
-4. Run tests: `npm test`
-5. Commit your changes: `git commit -m 'Add amazing feature'`
-6. Push to the branch: `git push origin feature/amazing-feature`
-7. Open a Pull Request
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 🙏 Acknowledgments
-
-- Inspired by [Vibe](https://github.com/thewh1teagle/vibe)
-- Built with [Tauri](https://tauri.app/)
-- Icons by [Lucide](https://lucide.dev/)
-
-## 📞 Support
-
-- **Issues**: [GitHub Issues](https://github.com/your-username/scriptify-transcribe/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/your-username/scriptify-transcribe/discussions)
-- **Email**: support@scriptify-transcribe.com
-
-## 🔗 Links
-
-- **Website**: [scriptify-transcribe.com](https://scriptify-transcribe.com)
-- **Documentation**: [docs.scriptify-transcribe.com](https://docs.scriptify-transcribe.com)
-- **Download**: [Releases](https://github.com/your-username/scriptify-transcribe/releases)
-
----
-
-Made with ❤️ by the Scriptify Team 
