@@ -102,24 +102,3 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 ## License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
-
-## Acknowledgments
-
-- OpenAI Whisper for the transcription model
-- Tauri for the desktop framework
-- React for the UI framework
-- Framer Motion for animations
-
-## Roadmap
-
-- Support for more languages (Japanese, Chinese, Spanish, etc.)
-- Translation features
-- Cloud sync capabilities
-- Batch processing
-- Advanced audio editing
-- Speaker identification
-- Custom model training
-
----
-
-Made with ❤️ for the open-source community 
