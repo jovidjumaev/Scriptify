@@ -1,14 +1,21 @@
-# Scriptify - AI-Powered Audio Transcription Tool
+# Scriptify
 
-A modern, open-source desktop application for high-quality audio transcription using Whisper AI. Built with Tauri, React, and TypeScript for cross-platform compatibility.
+![Scriptify](dist/example.png)
 
-## About This Project
+An AI-powered audio transcription tool built with Tauri, React, and TypeScript for cross-platform compatibility.
 
-I created this app during my internship in Seoul, South Korea. Since I didn't speak Korean, I needed a solution to transcribe and later translate my company meetings. This open-source tool was born from that practical need - allowing me to record meetings and get accurate transcriptions that I could then translate to understand what was discussed.
+## About
 
-Currently, Scriptify supports English and Korean transcription, with plans to expand to more languages in the future.
+Created during an internship in Seoul, South Korea, this tool was developed to transcribe and translate company meetings. It supports English and Korean transcription with plans to expand to more languages.
 
+## Features
 
+- High-quality audio transcription using Whisper AI
+- Support for multiple audio formats (MP3, WAV, M4A, FLAC)
+- Cross-platform compatibility (Windows, macOS, Linux)
+- Real-time transcription progress
+- Multiple export formats
+- English and Korean language support
 
 ## Quick Start
 
@@ -20,44 +27,41 @@ Currently, Scriptify supports English and Korean transcription, with plans to ex
 
 ### Installation
 
-1. **Clone the repository**
+1. Clone the repository
    ```bash
    git clone git@github.com:jovidjumaev/Scriptify.git
    cd Scriptify
    ```
 
-2. **Install dependencies**
+2. Install dependencies
    ```bash
    npm install
    ```
 
-3. **Set up Python environment**
+3. Set up Python environment
    ```bash
-   # Create virtual environment
    python3 -m venv scriptify-env
-   source scriptify-env/bin/activate  # On Windows: scriptify-env\Scripts\activate
-   
-   # Install Python dependencies
+   source scriptify-env/bin/activate
    pip install -r src-tauri/python/requirements.txt
    ```
 
-4. **Run the application**
+4. Run the application
    ```bash
    npm run tauri dev
    ```
 
 ## Usage
 
-1. **Upload Audio**: Drag and drop audio files or click to browse
-2. **Select Language**: Choose between English, Korean, or auto-detect
-3. **Start Transcription**: Click "Auto Transcribe" to begin
-4. **View Results**: See real-time progress and final transcription
-5. **Export**: Save your transcription in various formats
+1. Upload audio files by dragging and dropping or browsing
+2. Select language (English, Korean, or auto-detect)
+3. Click "Auto Transcribe" to begin
+4. View real-time progress and final transcription
+5. Export in various formats
 
 ## Supported Audio Formats
 
-- MP3, WAV, M4A, FLAC, and other common audio formats
-- Maximum file size: 25MB (for optimal performance)
+- MP3, WAV, M4A, FLAC, and other common formats
+- Maximum file size: 25MB
 
 ## Development
 
@@ -97,24 +101,24 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License - see the LICENSE file for details.
 
 ## Acknowledgments
 
-- [OpenAI Whisper](https://github.com/openai/whisper) for the transcription model
-- [Tauri](https://tauri.app/) for the desktop framework
-- [React](https://reactjs.org/) for the UI framework
-- [Framer Motion](https://www.framer.com/motion/) for animations
+- OpenAI Whisper for the transcription model
+- Tauri for the desktop framework
+- React for the UI framework
+- Framer Motion for animations
 
 ## Roadmap
 
-- [ ] Support for more languages (Japanese, Chinese, Spanish, etc.)
-- [ ] Translation features
-- [ ] Cloud sync capabilities
-- [ ] Batch processing
-- [ ] Advanced audio editing
-- [ ] Speaker identification
-- [ ] Custom model training
+- Support for more languages (Japanese, Chinese, Spanish, etc.)
+- Translation features
+- Cloud sync capabilities
+- Batch processing
+- Advanced audio editing
+- Speaker identification
+- Custom model training
 
 ---
 
